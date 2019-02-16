@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install:client": "cd ./client && npm install",
+    "install:server": "cd ./server && npm install",
+    "install:all": "npm run install:client && npm run install:server",
     "start:client": "npm start --prefix ./client",
     "start:server": "npm start --prefix ./server",
-    "start": "run-p start:client start:server"
+    "start": "run-p start:client start:server",
+    "postinstall": "npm run install:all"
   },
   "keywords": [],
   "author": "",
