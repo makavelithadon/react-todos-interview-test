@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 const getTodos = state => state.todos;
 
@@ -21,4 +21,3 @@ export const getIsAdding = createSelector(
   getTodos,
   todos => todos.isAdding
 );
-
