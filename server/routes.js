@@ -27,7 +27,6 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
   router.put("/todos/:id", (req, res, next) => {
     const { id } = req.params;
     const todo = req.body.todo;
-    console.log('todo', todo);
     
     const todos = getTodos();
     const todoIndex = todos.findIndex(todo => todo.id === id);
@@ -48,8 +47,6 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
   router.delete("/todos/:id", (req, res, next) => {
     const { id } = req.params;
     const todos = getTodos().filter(todo => todo.id !== id);
-    console.log('todos', todos);
-    
     setTodos(todos);
     res.status(200).send({ code: 200, data: todos });
   });
@@ -61,7 +58,10 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
   router.post("/todos", (req, res, next) => {
     const todos = getTodos();
     const { content } = req.body;
-    const todo = { id: uuid.v4(), content, completed: false };
+    const date = new Date();
+    const localeDate = date.toLocaleDateString('fr-FR');
+    const localeTime = date.toLocaleTimeString('fr-FR');
+    const todo = { id: uuid.v4(), content, completed: false, date: `${localeDate} ${localeTime}`  };
     const newTodos = [...todos, todo];
     setTodos(newTodos);
     res.status(200).send({ code: 200, data: todo });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node --icu-data-dir=node_modules\\full-icu index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "full-icu": "^1.2.1",
     "uuid": "^3.3.2"
   }
 }

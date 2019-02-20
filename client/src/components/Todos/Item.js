@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const itemRadius = 8;
 
 const StyledTodo = styled.li`
+  position: relative;
   cursor: pointer;
   border: 1px solid lightgrey;
   padding: 1.4rem;
@@ -22,8 +23,15 @@ const StyledTodo = styled.li`
   }
 `;
 
+const StyledDate = styled.div`
+  position: absolute;
+  top: 50%; right: 0;
+  padding-right: 1.4rem;
+  transform: translateY(-50%);
+`;
+
 export default function TodoListItem ({ todo, onSelect }) {
   return (
-    <StyledTodo onClick={() => onSelect(todo.id)} completed={todo.completed}>{todo.content}</StyledTodo>
+    <StyledTodo onClick={() => onSelect(todo.id)} completed={todo.completed}>{todo.content}<StyledDate>Ajouté le {todo.date}</StyledDate></StyledTodo>
   );
 }

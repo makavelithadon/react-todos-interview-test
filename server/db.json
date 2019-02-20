@@ -1,3 +1,52 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": "7c3f8eed-251e-4f49-a03b-eddd3a3ac578",
+      "content": "Lardons",
+      "completed": false,
+      "date": "20/02/2019 17:02:35"
+    },
+    {
+      "id": "4385852f-ce00-489a-ba5b-f3602d9595ba",
+      "content": "Pommes de terre",
+      "completed": false,
+      "date": "20/02/2019 17:02:39"
+    },
+    {
+      "id": "9edeba15-3250-4e91-b911-6e7140f6bc04",
+      "content": "Jambon",
+      "completed": false,
+      "date": "20/02/2019 17:02:48"
+    },
+    {
+      "id": "e2589fe2-ad70-40fa-9532-dbe47db08cf9",
+      "content": "Salade verte",
+      "completed": false,
+      "date": "20/02/2019 17:02:51"
+    },
+    {
+      "id": "70a158d3-e61b-4f3a-85d3-8d39203d68ac",
+      "content": "Steaks",
+      "completed": false,
+      "date": "20/02/2019 17:02:55"
+    },
+    {
+      "id": "4599afd4-7f34-42fb-b750-fb3a836eaa49",
+      "content": "Surgelés",
+      "completed": false,
+      "date": "20/02/2019 17:03:21"
+    },
+    {
+      "id": "7bc004ca-3a51-4c1a-bfa7-06fec22480b3",
+      "content": "Pack de Coca",
+      "completed": false,
+      "date": "20/02/2019 17:03:26"
+    },
+    {
+      "id": "7509af4b-c1db-4c1b-8e4f-6d95eda2889e",
+      "content": "Gruyère râpé",
+      "completed": false,
+      "date": "20/02/2019 17:03:36"
+    }
+  ]
 }
