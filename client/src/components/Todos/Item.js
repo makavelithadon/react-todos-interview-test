@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 
 const itemRadius = 8;
 
-const StyledTodo = styled.li`
+const StyledTodo = styled(animated.li).attrs(({ opacity, maxHeight }) => ({
+  style: {
+    opacity: opacity.interpolate(o => o),
+    maxHeight: maxHeight.interpolate(h => h),
+  }
+}))`
   position: relative;
   cursor: pointer;
-  border: 1px solid lightgrey;
-  padding: 1.4rem;
-  transition: .25s ease-out;
-  text-decoration: ${({ completed }) => completed ? 'line-through' : 'none'};
+  overflow: hidden;
+  background-color: ${({ isSelected }) => isSelected ? 'deeppink' : '#fff'};
+  color: ${({ isSelected }) => isSelected ? '#fff' : 'deeppink'};;
   &:first-child {
     border-top-left-radius: ${itemRadius}px;
     border-top-right-radius: ${itemRadius}px;
@@ -19,8 +24,15 @@ const StyledTodo = styled.li`
     border-bottom-right-radius: ${itemRadius}px;
   }
   &:hover {
-    box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+    background-color: deeppink;
+    color: #fff;
   }
+`;
+
+const StyledItemContent = styled.div`
+  text-decoration: ${({ completed }) => completed ? 'line-through' : 'none'};
+  opacity: ${({ completed }) => completed ? 0.35 : 1};
+  padding: 1.4rem;
 `;
 
 const StyledDate = styled.div`
@@ -30,8 +42,8 @@ const StyledDate = styled.div`
   transform: translateY(-50%);
 `;
 
-export default function TodoListItem ({ todo, onSelect }) {
+export default function TodoListItem ({ todo, onSelect, isSelected, style }) {
   return (
-    <StyledTodo onClick={() => onSelect(todo.id)} completed={todo.completed}>{todo.content}<StyledDate>Ajouté le {todo.date}</StyledDate></StyledTodo>
+    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isSelected={isSelected}><StyledItemContent completed={todo.completed}>{todo.content}<StyledDate>Ajouté le {todo.date}</StyledDate></StyledItemContent></StyledTodo>
   );
 }

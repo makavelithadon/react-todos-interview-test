@@ -1,43 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import TodoListItem from "./Item";
 import Modal from "components/Modal";
 import DeleteButton from "containers/DeleteButton";
 import TodoDetails from "containers/TodoDetails";
+import { useTransition, animated } from 'react-spring';
 
-export default class TodoList extends React.Component {
-  state = {
-    modalOpen: false
-  };
-  showModal = () => this.setState({ modalOpen: true });
-  hideModal = () => this.setState({ modalOpen: false });
-  reverseList = list => [...list].reverse();
-  render() {
-    const { todos, selectTodo, selected } = this.props;
-    const { modalOpen } = this.state;
-    const modalContent = selected && (
-      <>
-        <TodoDetails />
-        <DeleteButton />
-      </>
-    );
-    return (
-      <>
-        <ul>
-          {this.reverseList(todos).map(todo => (
-            <TodoListItem
-              key={todo.id}
-              todo={todo}
-              onSelect={id => {
-                selectTodo(id);
-                this.showModal();
-              }}
-            />
-          ))}
-        </ul>
-        <Modal open={modalOpen} onClose={this.hideModal}>
-          {modalContent}
-        </Modal>
-      </>
-    );
+export default function TodoList ({ todos, selectTodo, selected }) {
+  const [isModalOPen, setIsModalOpen] = useState(false);
+  const showModal = () => setIsModalOpen(true);
+  const hideModal = () => {
+    setIsModalOpen(false);
+    selectTodo(null);
   }
+  const reverseList = list => [...list].reverse();
+  const modalContent = selected && (
+    <>
+      <TodoDetails />
+      <DeleteButton />
+    </>
+  );
+  const transitions = useTransition(reverseList(todos), item => item.id, {
+    from: { opacity: 0, maxHeight: 0 },
+    enter: { opacity: 1, maxHeight: 200 },
+    leave: { opacity: 0, maxHeight: 0 },
+  })
+  return (
+    <>
+      <ul>
+        {transitions.map(({ item: todo, props, key }) => <TodoListItem
+          key={key}
+          todo={todo}
+          onSelect={id => {
+            selectTodo(id);
+            showModal();
+          }}
+          isSelected={selected === todo.id}
+          style={props}
+        />)}
+      </ul>
+      <Modal open={isModalOPen} onClose={hideModal}>
+        {modalContent}
+      </Modal>
+    </>
+  );
 }

@@ -28,6 +28,8 @@ export default function Modal({ open, onClose, children }) {
     <Backdrop show={!!open} onClick={() => onClose && typeof onClose === "function" && onClose()} />,
     document.body
   );
+  console.log('children', children);
+  
   return (
     <>
       {portalBackdrop}
@@ -37,7 +39,7 @@ export default function Modal({ open, onClose, children }) {
         config={{ ...config.gentle, delay: open ? 300 : 1, clamp: true }}
         native
       >
-        {styles => <StyledModal {...styles}>{children}</StyledModal>}
+        {styles => children && <StyledModal {...styles}>{children}</StyledModal>}
       </Spring>
     </>
   );

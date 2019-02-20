@@ -6,6 +6,7 @@ const StyledTodoDetails = styled.div`
   color: rgba(0, 0, 0, 0.825);
   padding: 1.4rem 4rem 1.4rem 1.4rem;
   text-decoration: ${({ completed }) => completed ? 'line-through' : 'none'};
+  color: deeppink;
 `;
 
 const StyledDate = styled.div`

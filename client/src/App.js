@@ -7,7 +7,8 @@ import AddTodo from "containers/AddTodo";
 import styled from "styled-components";
 const AppContainer = styled.div`
   max-width: 960px;
-  margin: 40px auto 0 auto;
+  padding-top: 40px;
+  margin: 0 auto 40px auto;
 `;
 
 const store = configureStore();
