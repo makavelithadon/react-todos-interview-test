@@ -8,7 +8,10 @@ import {
   ADD_TODO,
   ADD_TODO_SUCCESS,
   ADD_TODO_ERROR,
-  SELECT_TODO
+  SELECT_TODO,
+  UPDATE_TODO,
+  UPDATE_TODO_SUCCESS,
+  UPDATE_TODO_ERROR,
 } from "./types";
 
 export const fetchTodos = () => ({ type: FETCH_TODOS });
@@ -30,3 +33,9 @@ export const addTodoSuccess = todo => ({ type: ADD_TODO_SUCCESS, payload: todo }
 export const addTodoError = (content, error) => ({ type: ADD_TODO_ERROR, payload: { content, error } });
 
 export const selectTodo = todoId => ({ type: SELECT_TODO, payload: todoId });
+
+export const updateTodo = todo => ({ type: UPDATE_TODO, payload: todo });
+
+export const updateTodoSuccess = todo => ({ type: UPDATE_TODO_SUCCESS, payload: todo });
+
+export const updateTodoError = (todoId, error) => ({ type: UPDATE_TODO_ERROR, payload: { todoId, error } });

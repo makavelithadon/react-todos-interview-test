@@ -1,12 +1,14 @@
 import { takeLatest, takeEvery, call, put } from "redux-saga/effects";
-import { FETCH_TODOS, DELETE_TODO, ADD_TODO } from "./types";
+import { FETCH_TODOS, DELETE_TODO, ADD_TODO, UPDATE_TODO } from "./types";
 import {
   fetchTodosSuccess,
   fetchTodosError,
   deleteTodoSuccess,
   deleteTodoError,
   addTodoSuccess,
-  addTodoError
+  addTodoError,
+  updateTodoSuccess,
+  updateTodoError,
 } from "./actions";
 import api from "api";
 
@@ -53,8 +55,22 @@ function* addTodoWorkerSaga({ payload: content }) {
   }
 }
 
+async function updateTodo (todo) {
+  return await api.todos.update(todo);
+}
+
+function* updateTodoWorkerSaga ({ payload: todo }) {
+  try {
+    yield call(updateTodo, todo);
+    yield put(updateTodoSuccess(todo));
+  } catch (error) {
+    yield put(updateTodoError(todo.id, error));
+  }
+}
+
 export default function* todoWatcherSaga() {
   yield takeLatest(FETCH_TODOS, fetchTodoWorkerSaga);
   yield takeEvery(DELETE_TODO, deleteTodoWorkerSaga);
   yield takeEvery(ADD_TODO, addTodoWorkerSaga);
+  yield takeEvery(UPDATE_TODO, updateTodoWorkerSaga);
 }

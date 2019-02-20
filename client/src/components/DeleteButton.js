@@ -6,14 +6,14 @@ const StyledButtonContainer = styled.div`
   text-align: center;
 `;
 
-export default function DeleteButton({ handleDeleteTodo, isDeleting, todoId, todos }) {
+export default function DeleteButton({ deleteTodo, isDeleting, todoId, todos }) {
   const notDeletedYet = todos.find(todo => todo.id === todoId);
   const button = (
     <Button
       readOnly={isDeleting || !notDeletedYet}
       type={"submit"}
       onClick={() => {
-        if (!isDeleting && notDeletedYet) handleDeleteTodo(todoId);
+        if (!isDeleting && notDeletedYet) deleteTodo(todoId);
       }}
     >
       {notDeletedYet ? "Delete" : "Successfully deleted from DB"}

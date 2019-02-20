@@ -2,7 +2,7 @@ import React from "react";
 import TodoListItem from "./Item";
 import Modal from "components/Modal";
 import DeleteButton from "containers/DeleteButton";
-import TodoDetails from "./Details";
+import TodoDetails from "containers/TodoDetails";
 
 export default class TodoList extends React.Component {
   state = {
@@ -12,12 +12,12 @@ export default class TodoList extends React.Component {
   hideModal = () => this.setState({ modalOpen: false });
   reverseList = list => [...list].reverse();
   render() {
-    const { todos, handleSelectTodo, selected, selectedItem } = this.props;
+    const { todos, selectTodo, selected } = this.props;
     const { modalOpen } = this.state;
     const modalContent = selected && (
       <>
-        <TodoDetails selected={selected} todo={selectedItem} />
-        <DeleteButton todoId={selected} />
+        <TodoDetails />
+        <DeleteButton />
       </>
     );
     return (
@@ -28,7 +28,7 @@ export default class TodoList extends React.Component {
               key={todo.id}
               todo={todo}
               onSelect={id => {
-                handleSelectTodo(id);
+                selectTodo(id);
                 this.showModal();
               }}
             />

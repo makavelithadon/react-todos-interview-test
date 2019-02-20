@@ -1,4 +1,4 @@
-import React from "react";
+import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import { addTodo } from "state/ducks/todos/actions";
 import { getIsAdding } from "state/ducks/todos/selectors";
@@ -8,9 +8,9 @@ const mapStateToProps = state => ({
   isAdding: getIsAdding(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  addTodo: content => dispatch(addTodo(content))
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addTodo
+}, dispatch);
 
 export default connect(
   mapStateToProps,

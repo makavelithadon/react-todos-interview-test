@@ -8,7 +8,10 @@ import {
   ADD_TODO,
   ADD_TODO_SUCCESS,
   ADD_TODO_ERROR,
-  SELECT_TODO
+  SELECT_TODO,
+  UPDATE_TODO,
+  UPDATE_TODO_SUCCESS,
+  UPDATE_TODO_ERROR,
 } from "./types";
 import { combineReducers } from "redux";
 
@@ -22,6 +25,9 @@ export function items(state = initialItems, action) {
       return state.filter(todo => todo.id !== action.payload.id);
     case ADD_TODO_SUCCESS:
       return [...state, action.payload];
+    case UPDATE_TODO_SUCCESS:
+      const index = state.findIndex(item => item.id === action.payload.id);
+      return [...state.slice(0, index), action.payload, ...state.slice(index+1)]
     default:
       return state;
   }
@@ -61,22 +67,27 @@ export function isAdding(state = initialIsAdding, action) {
   switch (action.type) {
     case ADD_TODO:
       return true;
+    case ADD_TODO_SUCCESS:
+    case ADD_TODO_ERROR:
+        return false;
     default:
       return state;
   }
 }
 
-const initialError = false;
+const initialError = null;
 
 export function error(state = initialError, action) {
   switch (action.type) {
     case FETCH_TODOS_SUCCESS:
     case DELETE_TODO_SUCESS:
     case ADD_TODO_SUCCESS:
+    case UPDATE_TODO_SUCCESS:
       return null;
     case DELETE_TODO_ERROR:
     case ADD_TODO_ERROR:
     case FETCH_TODOS_ERROR:
+    case UPDATE_TODO_ERROR:
       return action.payload.error;
     default:
       return state;
@@ -94,11 +105,26 @@ export function selected(state = initialSelected, action) {
   }
 }
 
+const initialIsUpdating = false;
+
+export function isUpdating (state = initialIsUpdating, action) {
+  switch (action.type) {
+    case UPDATE_TODO:
+      return true;
+    case UPDATE_TODO_SUCCESS:
+    case UPDATE_TODO_ERROR:
+      return false;
+    default:
+    return state;
+  }
+}
+
 export default combineReducers({
   items,
   isLoading,
   isDeleting,
   isAdding,
+  isUpdating,
   selected,
   error
 });

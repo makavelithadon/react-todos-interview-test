@@ -22,6 +22,11 @@ export const getIsAdding = createSelector(
   todos => todos.isAdding
 );
 
+export const getIsUpdating = createSelector(
+  getTodos,
+  todos => todos.isUpdating
+);
+
 export const getSelected = createSelector(
   getTodos,
   todos => todos.selected

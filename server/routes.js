@@ -27,24 +27,29 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
   router.put("/todos/:id", (req, res, next) => {
     const { id } = req.params;
     const todo = req.body.todo;
-    const todoIndex = getTodos().findIndex(todo => todo.id === parseInt(id));
+    console.log('todo', todo);
+    
+    const todos = getTodos();
+    const todoIndex = todos.findIndex(todo => todo.id === id);
     const code = todoIndex < 0 ? 404 : 200;
     if (todoIndex < 0)
       return res.status(code).send({
         code,
         message: `No todo found with the id ${id}`
       });
-    const todos = [...todos.slice(0, todoIndex), todo, ...todos.slice(todoIndex)];
-    setTodos(todos);
+    const newTodos = [...todos.slice(0, todoIndex), todo, ...todos.slice(todoIndex + 1)];
+    setTodos(newTodos);
     res.status(code).send({
       code,
-      data: todos[todoIndex]
+      data: todo
     });
   });
 
   router.delete("/todos/:id", (req, res, next) => {
     const { id } = req.params;
-    const todos = getTodos().filter(todo => parseInt(todo.id) !== parseInt(id));
+    const todos = getTodos().filter(todo => todo.id !== id);
+    console.log('todos', todos);
+    
     setTodos(todos);
     res.status(200).send({ code: 200, data: todos });
   });

@@ -8,6 +8,7 @@ const StyledTodo = styled.li`
   border: 1px solid lightgrey;
   padding: 1.4rem;
   transition: .25s ease-out;
+  text-decoration: ${({ completed }) => completed ? 'line-through' : 'none'};
   &:first-child {
     border-top-left-radius: ${itemRadius}px;
     border-top-right-radius: ${itemRadius}px;
@@ -23,6 +24,6 @@ const StyledTodo = styled.li`
 
 export default function TodoListItem ({ todo, onSelect }) {
   return (
-    <StyledTodo onClick={() => onSelect(todo.id)}>{todo.content}</StyledTodo>
+    <StyledTodo onClick={() => onSelect(todo.id)} completed={todo.completed}>{todo.content}</StyledTodo>
   );
 }
