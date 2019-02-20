@@ -7,20 +7,21 @@ import {
   DELETE_TODO_ERROR,
   ADD_TODO,
   ADD_TODO_SUCCESS,
-  ADD_TODO_ERROR
-} from './types';
+  ADD_TODO_ERROR,
+  SELECT_TODO
+} from "./types";
 import { combineReducers } from "redux";
 
 const initialItems = [];
 
-export function items (state = initialItems, action) {
+export function items(state = initialItems, action) {
   switch (action.type) {
     case FETCH_TODOS_SUCCESS:
       return action.payload;
     case DELETE_TODO_SUCESS:
       return state.filter(todo => todo.id !== action.payload.id);
     case ADD_TODO_SUCCESS:
-      return [ ...state, action.payload ];
+      return [...state, action.payload];
     default:
       return state;
   }
@@ -28,7 +29,7 @@ export function items (state = initialItems, action) {
 
 const initialIsLoading = false;
 
-export function isLoading (state = initialIsLoading, action) {
+export function isLoading(state = initialIsLoading, action) {
   switch (action.type) {
     case FETCH_TODOS_ERROR:
     case FETCH_TODOS_SUCCESS:
@@ -42,7 +43,7 @@ export function isLoading (state = initialIsLoading, action) {
 
 const initialIsDeleting = false;
 
-export function isDeleting (state = initialIsDeleting, action) {
+export function isDeleting(state = initialIsDeleting, action) {
   switch (action.type) {
     case DELETE_TODO:
       return true;
@@ -56,7 +57,7 @@ export function isDeleting (state = initialIsDeleting, action) {
 
 const initialIsAdding = false;
 
-export function isAdding (state = initialIsAdding, action) {
+export function isAdding(state = initialIsAdding, action) {
   switch (action.type) {
     case ADD_TODO:
       return true;
@@ -67,7 +68,7 @@ export function isAdding (state = initialIsAdding, action) {
 
 const initialError = false;
 
-export function error (state = initialError, action) {
+export function error(state = initialError, action) {
   switch (action.type) {
     case FETCH_TODOS_SUCCESS:
     case DELETE_TODO_SUCESS:
@@ -82,10 +83,22 @@ export function error (state = initialError, action) {
   }
 }
 
+const initialSelected = null;
+
+export function selected(state = initialSelected, action) {
+  switch (action.type) {
+    case SELECT_TODO:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   items,
   isLoading,
   isDeleting,
   isAdding,
-  error,
+  selected,
+  error
 });

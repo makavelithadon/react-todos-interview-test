@@ -1,29 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "components/Button";
 
 const StyledButtonContainer = styled.div`
   text-align: center;
 `;
 
-const StyledButton = styled.button`
-  padding: 10px 16px;
-  border-radius: 4px;
-  border: none;
-  outline: 0;
-  outline-offset: 0;
-  cursor: pointer;
-`;
-
 export default function DeleteButton({ handleDeleteTodo, isDeleting, todoId, todos }) {
-  return (
-    <StyledButtonContainer>
-      <StyledButton
-        onClick={() => {
-          if (!isDeleting && todos.find(todo => todo.id === todoId)) handleDeleteTodo(todoId);
-        }}
-      >
-        Delete todo
-      </StyledButton>
-    </StyledButtonContainer>
+  const notDeletedYet = todos.find(todo => todo.id === todoId);
+  const button = (
+    <Button
+      readOnly={isDeleting || !notDeletedYet}
+      type={"submit"}
+      onClick={() => {
+        if (!isDeleting && notDeletedYet) handleDeleteTodo(todoId);
+      }}
+    >
+      {notDeletedYet ? "Delete" : "Successfully deleted from DB"}
+    </Button>
   );
+  return <StyledButtonContainer>{button}</StyledButtonContainer>;
 }

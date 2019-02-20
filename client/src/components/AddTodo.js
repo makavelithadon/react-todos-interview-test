@@ -1,20 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Input from "components/Input";
+import Button from "components/Button";
 
 const StyledForm = styled.form`
-  margin: 40px auto 0 auto;
-  max-width: 960px;
-`;
-
-const StyledInput = styled.input`
-  padding: 0.7rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  outline: 0;
-  outline-offset: 0;
-  &:focus {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-  }
+  margin-bottom: 40px;
 `;
 
 const StyledLabel = styled.label`
@@ -22,16 +12,12 @@ const StyledLabel = styled.label`
   margin-bottom: 10px;
 `;
 
-const StyledTextInput = styled(StyledInput).attrs({
+const StyledTextInput = styled(Input).attrs({
   type: "text"
 })`
   margin-right: 8px;
   border: 1px solid lightgrey;
 `;
-
-const StyledButton = styled(StyledInput).attrs({
-  type: "submit"
-})``;
 
 export default function AddTodo({ addTodo, isAdding }) {
   const [content, setContent] = useState("");
@@ -50,12 +36,13 @@ export default function AddTodo({ addTodo, isAdding }) {
       <br />
       <StyledTextInput
         id={"todo"}
+        type={"text"}
         value={content}
         onChange={handleChange}
         readonly={isAdding}
         placeholder={"Type a todo to add it on your todo's list"}
       />
-      <StyledButton value={"Ajouter"} />
+      <Button type={"submit"}>Ajouter</Button>
     </StyledForm>
   );
 }

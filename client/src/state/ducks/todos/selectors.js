@@ -21,3 +21,14 @@ export const getIsAdding = createSelector(
   getTodos,
   todos => todos.isAdding
 );
+
+export const getSelected = createSelector(
+  getTodos,
+  todos => todos.selected
+);
+
+export const getSelectedItem = createSelector(
+  getTodos,
+  getTodosItems,
+  (todos, items) => items.find(item => item.id === todos.selected)
+);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 const StyledTodoDetails = styled.div`
@@ -6,6 +6,10 @@ const StyledTodoDetails = styled.div`
   padding: 1.4rem;
 `;
 
-export default function TodoDetails({ todo }) {
+function TodoDetails({ todo }) {
   return <StyledTodoDetails>{todo.content}</StyledTodoDetails>;
 }
+
+const areEqual = (prevProps, nextProps) => nextProps.selected === prevProps.selected;
+
+export default memo(TodoDetails, areEqual);
