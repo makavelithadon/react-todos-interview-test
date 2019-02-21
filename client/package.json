@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "deep-equal": "^1.0.1",
+    "query-string": "^6.2.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-helmet": "^5.2.0",

@@ -7,12 +7,6 @@
       "date": "21/02/2019 13:24:25"
     },
     {
-      "id": "3511ee8a-f3d4-45fd-88da-ce37ccb392f6",
-      "content": "Coca Cola",
-      "completed": true,
-      "date": "21/02/2019 13:24:28"
-    },
-    {
       "id": "f122372e-fff0-4d25-b959-521727e5af19",
       "content": "Pain de mie",
       "completed": true,
@@ -35,6 +29,18 @@
       "content": "Gâteaux",
       "completed": false,
       "date": "21/02/2019 13:25:25"
+    },
+    {
+      "id": "5c52dd60-0fc1-4265-9251-87fab92ae797",
+      "content": "Coca Cola",
+      "completed": true,
+      "date": "21/02/2019 13:29:56"
+    },
+    {
+      "id": "eac0199a-bb40-4d16-b7bd-5044a7eee468",
+      "content": "Tablette de chocolat",
+      "completed": false,
+      "date": "21/02/2019 15:13:36"
     }
   ]
 }

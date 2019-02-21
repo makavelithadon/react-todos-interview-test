@@ -52,3 +52,79 @@ body {
   background-attachment: fixed;
   background-image: linear-gradient(to right top, #6cd8ab, #00d2cd, #00c7ee, #00b6ff, #749fff, #b68ef0, #e57cd0, #ff6fa6, #ff7e7e, #ff9d57, #f9c13d, #cbe34b);
 }
+
+.control {
+  font-family: arial;
+  display: inline-block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 5px;
+  padding-top: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 24px;
+}
+
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.control_indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #e6e6e6;
+  border: 0px solid #d6d6d6;
+}
+
+.control-radio .control_indicator {
+  border-radius: 50%;
+}
+
+.control:hover input~.control_indicator,
+.control input:focus~.control_indicator {
+  background: #cccccc;
+}
+
+.control input:checked~.control_indicator {
+  background: #ff1493;
+}
+
+.control:hover input:not([disabled]):checked~.control_indicator,
+.control input:checked:focus~.control_indicator {
+  background: #0e6647d;
+}
+
+.control input:disabled~.control_indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.control_indicator:after {
+  box-sizing: unset;
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.control input:checked~.control_indicator:after {
+  display: block;
+}
+
+.control-radio .control_indicator:after {
+  left: 7px;
+  top: 7px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.control-radio input:disabled~.control_indicator:after {
+  background: #7b7b7b;
+}

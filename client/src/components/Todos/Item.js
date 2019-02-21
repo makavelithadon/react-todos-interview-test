@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { animated } from "react-spring";
+import { animated } from "react-spring/renderprops";
 
 const itemRadius = 8;
 
-const StyledTodo = styled(animated.li).attrs(({ opacity, maxheight }) => ({
+const StyledTodo = styled(animated.li).attrs(({ opacity, height }) => ({
   style: {
     opacity: opacity.interpolate(o => o),
-    maxHeight: maxheight.interpolate(h => `${h}px`)
+    height: height.interpolate(h => h)
   }
 }))`
+  display: flex;
+  align-items: center;
   position: relative;
   cursor: pointer;
   overflow: hidden;
