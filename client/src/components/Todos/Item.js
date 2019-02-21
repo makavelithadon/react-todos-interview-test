@@ -13,7 +13,7 @@ const StyledTodo = styled(animated.li).attrs(({ opacity, maxheight }) => ({
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  background-color: ${({ isselected }) => (isselected === "true" ? "deeppink" : "#fff")};
+  background-color: ${({ isselected }) => (isselected === "true" ? "#e13fa7" : "#fff")};
   &:first-child {
     border-top-left-radius: ${itemRadius}px;
     border-top-right-radius: ${itemRadius}px;
@@ -23,7 +23,7 @@ const StyledTodo = styled(animated.li).attrs(({ opacity, maxheight }) => ({
     border-bottom-right-radius: ${itemRadius}px;
   }
   &:hover {
-    background-color: deeppink;
+    background-color: #e13fa7;
   }
   transition: 0.3s ease-out;
 `;
@@ -32,7 +32,7 @@ const StyledItemContent = styled.div`
   text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
   opacity: ${({ completed }) => (completed ? 0.35 : 1)};
   padding: 1.4rem 16rem 1.4rem 1.4rem;
-  color: ${({ isselected }) => (isselected === "true" ? "#fff" : "deeppink")};
+  color: ${({ isselected }) => (isselected === "true" ? "#fff" : "#e13fa7")};
   ${StyledTodo}:hover & {
     color: #fff;
   }
