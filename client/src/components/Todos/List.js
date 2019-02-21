@@ -20,7 +20,7 @@ export default function TodoList({ todos, selectTodo, selected }) {
     leave: { opacity: 0, maxheight: 0 },
     onDestroyed: () => selected && hideModal(),
     native: true,
-    initial: null
+    initial: { opacity: 0, maxheight: 200 }
   });
   const [isModalOPen, setIsModalOpen] = useState(false);
   const showModal = () => setIsModalOpen(true);

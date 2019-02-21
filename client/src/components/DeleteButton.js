@@ -16,6 +16,7 @@ export default function DeleteButton({ deleteTodo, isDeleting, todoId, todos }) 
     <Button
       readOnly={isDeleting || !notDeletedYet}
       type={"submit"}
+      rounded
       onClick={() => {
         if (!isDeleting && notDeletedYet) deleteTodo(todoId);
       }}
