@@ -16,20 +16,19 @@ const StyledModal = styled(animated.div).attrs(({ opacity, y }) => ({
   left: 50%;
   top: 50%;
   max-width: 960px;
-  padding: 1rem;
+  padding: 1.4rem 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
   background-color: #fff;
   z-index: 9999999;
 `;
 
-export default function Modal({ open, onClose, children }) {
+export default function Modal({ open, onClose, children, ...rest }) {
   const portalBackdrop = ReactDOM.createPortal(
     <Backdrop show={!!open} onClick={() => onClose && typeof onClose === "function" && onClose()} />,
     document.body
   );
-  console.log('children', children);
-  
+
   return (
     <>
       {portalBackdrop}
@@ -39,7 +38,13 @@ export default function Modal({ open, onClose, children }) {
         config={{ ...config.gentle, delay: open ? 300 : 1, clamp: true }}
         native
       >
-        {styles => children && <StyledModal {...styles}>{children}</StyledModal>}
+        {styles =>
+          children && (
+            <StyledModal {...styles} {...rest}>
+              {children}
+            </StyledModal>
+          )
+        }
       </Spring>
     </>
   );

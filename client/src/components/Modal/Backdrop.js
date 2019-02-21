@@ -5,7 +5,7 @@ import { Spring, animated } from "react-spring/renderprops";
 const StyledBackdrop = styled(animated.div).attrs(({ opacity }) => ({
   style: {
     opacity: opacity.interpolate(o => o),
-    pointerEvents: opacity.interpolate(o => (o >= 1 ? "auto" : "none")),
+    pointerEvents: opacity.interpolate(o => (o >= 0 ? "auto" : "none")),
     display: opacity.interpolate(o => (o > 0 ? "block" : "none")),
     visibility: opacity.interpolate(o => (o > 0 ? "visible" : "hidden"))
   }

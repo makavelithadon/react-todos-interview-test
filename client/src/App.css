@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
@@ -27,6 +33,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,5 +46,9 @@ ul {
 }
 
 body {
-  background-color: #0ff5b5;
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(to right top, #6cd8ab, #00d2cd, #00c7ee, #00b6ff, #749fff, #b68ef0, #e57cd0, #ff6fa6, #ff7e7e, #ff9d57, #f9c13d, #cbe34b);
 }

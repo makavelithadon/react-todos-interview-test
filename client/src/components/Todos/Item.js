@@ -1,20 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-import { animated } from 'react-spring';
+import React from "react";
+import styled from "styled-components";
+import { animated } from "react-spring";
 
 const itemRadius = 8;
 
-const StyledTodo = styled(animated.li).attrs(({ opacity, maxHeight }) => ({
+const StyledTodo = styled(animated.li).attrs(({ opacity, maxheight }) => ({
   style: {
     opacity: opacity.interpolate(o => o),
-    maxHeight: maxHeight.interpolate(h => h),
+    maxHeight: maxheight.interpolate(h => `${h}px`)
   }
 }))`
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  background-color: ${({ isSelected }) => isSelected ? 'deeppink' : '#fff'};
-  color: ${({ isSelected }) => isSelected ? '#fff' : 'deeppink'};;
+  background-color: ${({ isselected }) => (isselected === "true" ? "deeppink" : "#fff")};
   &:first-child {
     border-top-left-radius: ${itemRadius}px;
     border-top-right-radius: ${itemRadius}px;
@@ -25,25 +24,40 @@ const StyledTodo = styled(animated.li).attrs(({ opacity, maxHeight }) => ({
   }
   &:hover {
     background-color: deeppink;
+  }
+  transition: 0.3s ease-out;
+`;
+
+const StyledItemContent = styled.div`
+  text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
+  opacity: ${({ completed }) => (completed ? 0.35 : 1)};
+  padding: 1.4rem 16rem 1.4rem 1.4rem;
+  color: ${({ isselected }) => (isselected === "true" ? "#fff" : "deeppink")};
+  ${StyledTodo}:hover & {
     color: #fff;
   }
 `;
 
-const StyledItemContent = styled.div`
-  text-decoration: ${({ completed }) => completed ? 'line-through' : 'none'};
-  opacity: ${({ completed }) => completed ? 0.35 : 1};
-  padding: 1.4rem;
-`;
-
 const StyledDate = styled.div`
   position: absolute;
-  top: 50%; right: 0;
+  top: 50%;
+  right: 0;
   padding-right: 1.4rem;
   transform: translateY(-50%);
+  color: ${({ isselected }) => (isselected === "true" ? "#fff" : "rgba(0, 0, 0, 0.75)")};
+  font-size: 0.85rem;
+  ${StyledTodo}:hover & {
+    color: #fff;
+  }
 `;
 
-export default function TodoListItem ({ todo, onSelect, isSelected, style }) {
+export default function TodoListItem({ todo, onSelect, isSelected, style }) {
   return (
-    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isSelected={isSelected}><StyledItemContent completed={todo.completed}>{todo.content}<StyledDate>Ajouté le {todo.date}</StyledDate></StyledItemContent></StyledTodo>
+    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isselected={String(isSelected)}>
+      <StyledItemContent isselected={String(isSelected)} completed={todo.completed}>
+        {todo.content}
+        <StyledDate isselected={String(isSelected)}>Ajouté le {todo.date}</StyledDate>
+      </StyledItemContent>
+    </StyledTodo>
   );
 }

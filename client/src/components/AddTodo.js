@@ -42,7 +42,9 @@ export default function AddTodo({ addTodo, isAdding }) {
         readonly={isAdding}
         placeholder={"Type a todo to add it on your todo's list"}
       />
-      <Button type={"submit"}>Ajouter</Button>
+      <Button type={"submit"} color={"deeppink"} bgColor={"#fff"} rounded>
+        Ajouter
+      </Button>
     </StyledForm>
   );
 }

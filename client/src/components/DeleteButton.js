@@ -6,6 +6,10 @@ const StyledButtonContainer = styled.div`
   text-align: center;
 `;
 
+const StyledDeleted = styled.div`
+  color: #00bf72;
+`;
+
 export default function DeleteButton({ deleteTodo, isDeleting, todoId, todos }) {
   const notDeletedYet = todos.find(todo => todo.id === todoId);
   const button = (
@@ -16,8 +20,12 @@ export default function DeleteButton({ deleteTodo, isDeleting, todoId, todos }) 
         if (!isDeleting && notDeletedYet) deleteTodo(todoId);
       }}
     >
-      {notDeletedYet ? "Delete" : "Successfully deleted from DB"}
+      Delete
     </Button>
   );
-  return <StyledButtonContainer>{button}</StyledButtonContainer>;
+  return (
+    <StyledButtonContainer>
+      {notDeletedYet ? button : <StyledDeleted>Successfully deleted from DB</StyledDeleted>}
+    </StyledButtonContainer>
+  );
 }
