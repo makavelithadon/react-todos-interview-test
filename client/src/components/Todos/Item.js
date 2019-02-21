@@ -53,9 +53,9 @@ const StyledDate = styled.div`
   }
 `;
 
-export default function TodoListItem({ todo, onSelect, isSelected, style }) {
+function TodoListItem({ todo, onSelect, isSelected, style, innerRef }) {
   return (
-    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isselected={String(isSelected)}>
+    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isselected={String(isSelected)} ref={innerRef}>
       <StyledItemContent isselected={String(isSelected)} completed={todo.completed}>
         {todo.content}
         <StyledDate isselected={String(isSelected)}>Ajouté le {todo.date}</StyledDate>
@@ -63,3 +63,5 @@ export default function TodoListItem({ todo, onSelect, isSelected, style }) {
     </StyledTodo>
   );
 }
+
+export default React.forwardRef((props, ref) => <TodoListItem innerRef={ref} {...props} />);

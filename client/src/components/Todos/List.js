@@ -30,15 +30,15 @@ export default function TodoList({ todos, selectTodo, selected }) {
   const visibleTodos = reverseList(todos);
   return (
     <>
-      <ul>
+      <ul style={{ position: "relative" }}>
         <Transition
           items={visibleTodos}
           keys={item => item.id}
           from={{ opacity: 0, height: 0 }}
-          enter={{ opacity: 1, height: 80 }}
+          enter={{ opacity: 1, height: "auto" }}
           leave={{ opacity: 0, height: 0 }}
           onDestroyed={() => selected && hideModal()}
-          initial={{ opacity: 0, height: 80 }}
+          initial={{ opacity: 0, height: "auto" }}
           native
         >
           {todo => props => (
@@ -51,6 +51,7 @@ export default function TodoList({ todos, selectTodo, selected }) {
               }}
               isSelected={selected === todo.id}
               style={props}
+              ref={React.createRef(null)}
             />
           )}
         </Transition>

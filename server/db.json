@@ -21,7 +21,7 @@
     {
       "id": "9f288cb1-53b5-4eb8-9d19-6afcefa0c84b",
       "content": "Vinaigre balsamique",
-      "completed": false,
+      "completed": true,
       "date": "21/02/2019 13:24:54"
     },
     {
@@ -39,7 +39,7 @@
     {
       "id": "eac0199a-bb40-4d16-b7bd-5044a7eee468",
       "content": "Tablette de chocolat",
-      "completed": false,
+      "completed": true,
       "date": "21/02/2019 15:13:36"
     }
   ]
