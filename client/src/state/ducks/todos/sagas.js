@@ -8,7 +8,7 @@ import {
   addTodoSuccess,
   addTodoError,
   updateTodoSuccess,
-  updateTodoError,
+  updateTodoError
 } from "./actions";
 import api from "api";
 
@@ -18,9 +18,7 @@ async function fetchTodos() {
 
 function* fetchTodoWorkerSaga() {
   try {
-    const {
-      data: { data: todos }
-    } = yield call(fetchTodos);
+    const { data: todos } = yield call(fetchTodos);
     yield put(fetchTodosSuccess(todos));
   } catch (error) {
     yield put(fetchTodosError(error));
@@ -46,20 +44,19 @@ async function addTodo(content) {
 
 function* addTodoWorkerSaga({ payload: content }) {
   try {
-    const {
-      data: { data: todo }
-    } = yield call(addTodo, content);
+    const { data: todo } = yield call(addTodo, content);
+    console.log("todo", todo);
     yield put(addTodoSuccess(todo));
   } catch (error) {
     yield put(addTodoError(content, error));
   }
 }
 
-async function updateTodo (todo) {
+async function updateTodo(todo) {
   return await api.todos.update(todo);
 }
 
-function* updateTodoWorkerSaga ({ payload: todo }) {
+function* updateTodoWorkerSaga({ payload: todo }) {
   try {
     yield call(updateTodo, todo);
     yield put(updateTodoSuccess(todo));

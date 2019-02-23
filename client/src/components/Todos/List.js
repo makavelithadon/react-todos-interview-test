@@ -20,7 +20,6 @@ export default function TodoList({ todos, selectTodo, selected }) {
     setIsModalOpen(false);
     selectTodo(null);
   };
-  console.log("render");
   const modalContent = selected && (
     <StyledModalContent>
       <TodoDetails />

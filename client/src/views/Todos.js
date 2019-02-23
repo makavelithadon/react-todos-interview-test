@@ -6,7 +6,7 @@ import Filters from "components/Filters";
 
 const TodoContainer = styled.div`
   max-width: 960px;
-  padding-top: 40px;
+  padding: 40px 20px;
   margin: 0 auto 40px auto;
 `;
 

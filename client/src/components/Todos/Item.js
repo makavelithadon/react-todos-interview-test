@@ -28,6 +28,7 @@ const StyledTodo = styled(animated.li).attrs(({ opacity, height }) => ({
     background-color: #e13fa7;
   }
   transition: 0.3s ease-out;
+  will-change: height, opacity;
 `;
 
 const StyledItemContent = styled.div`

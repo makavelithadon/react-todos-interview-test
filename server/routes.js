@@ -26,8 +26,7 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
 
   router.put("/todos/:id", (req, res, next) => {
     const { id } = req.params;
-    const todo = req.body.todo;
-    
+    const { todo } = req.body;
     const todos = getTodos();
     const todoIndex = todos.findIndex(todo => todo.id === id);
     const code = todoIndex < 0 ? 404 : 200;
@@ -59,9 +58,9 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
     const todos = getTodos();
     const { content } = req.body;
     const date = new Date();
-    const localeDate = date.toLocaleDateString('fr-FR');
-    const localeTime = date.toLocaleTimeString('fr-FR');
-    const todo = { id: uuid.v4(), content, completed: false, date: `${localeDate} ${localeTime}`  };
+    const localeDate = date.toLocaleDateString("fr-FR");
+    const localeTime = date.toLocaleTimeString("fr-FR");
+    const todo = { id: uuid.v4(), content, completed: false, date: `${localeDate} ${localeTime}` };
     const newTodos = [...todos, todo];
     setTodos(newTodos);
     res.status(200).send({ code: 200, data: todo });

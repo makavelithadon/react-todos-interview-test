@@ -8,7 +8,7 @@ const StyledButton = styled.button.attrs(({ type }) => ({
   outline: 0;
   outline-offset: 0;
   cursor: pointer;
-  padding: 0.7rem;
+  padding: 0.7rem 1.5rem;
   &:focus,
   &:hover {
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
