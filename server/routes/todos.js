@@ -1,14 +1,16 @@
 const fs = require("fs");
 const path = require("path");
-const express = require("express");
 const uuid = require("uuid");
-const router = express.Router();
-const dbFilename = "db.json";
+const dbFilename = "../db.json";
 const dbPath = path.resolve(__dirname, dbFilename);
-const getTodos = () => JSON.parse(fs.readFileSync(dbPath)).todos;
-const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, null, 2), "utf-8");
+const getDB = () => JSON.parse(fs.readFileSync(dbPath));
+const getTodos = () => getDB().todos;
+const setTodos = todos => {
+  const { todos: _, ...rest } = getDB();
+  fs.writeFileSync(dbPath, JSON.stringify({ ...rest, todos }, null, 2), "utf-8");
+};
 
-(router => {
+module.exports = function todos(router) {
   router.get("/todos/:id", (req, res, next) => {
     const { id } = req.params;
     const todo = getTodos().find(todo => todo.id === parseInt(id));
@@ -65,6 +67,4 @@ const setTodos = todos => fs.writeFileSync(dbPath, JSON.stringify({ todos }, nul
     setTodos(newTodos);
     res.status(200).send({ code: 200, data: todo });
   });
-})(router);
-
-module.exports = router;
+};

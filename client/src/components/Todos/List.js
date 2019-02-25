@@ -1,7 +1,7 @@
 import React from "react";
 import TodoListItem from "./Item";
 
-export default function TodoList({ todos, selectTodo, selected }) {
+export default function TodosList({ todos, selectTodo, selected }) {
   const reverseList = list => [...list].reverse();
   /*  const [isModalOPen, setIsModalOpen] = useState(false);
   const showModal = () => setIsModalOpen(true);

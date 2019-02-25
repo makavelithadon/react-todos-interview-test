@@ -3,7 +3,7 @@ import {
   FETCH_TODOS_SUCCESS,
   FETCH_TODOS_ERROR,
   DELETE_TODO,
-  DELETE_TODO_SUCESS,
+  DELETE_TODO_SUCCESS,
   DELETE_TODO_ERROR,
   ADD_TODO,
   ADD_TODO_SUCCESS,
@@ -11,7 +11,7 @@ import {
   SELECT_TODO,
   UPDATE_TODO,
   UPDATE_TODO_SUCCESS,
-  UPDATE_TODO_ERROR,
+  UPDATE_TODO_ERROR
 } from "./types";
 
 export const fetchTodos = () => ({ type: FETCH_TODOS });
@@ -22,7 +22,7 @@ export const fetchTodosError = error => ({ type: FETCH_TODOS_ERROR, payload: { e
 
 export const deleteTodo = todoId => ({ type: DELETE_TODO, payload: { id: todoId } });
 
-export const deleteTodoSuccess = todoId => ({ type: DELETE_TODO_SUCESS, payload: { id: todoId } });
+export const deleteTodoSuccess = todoId => ({ type: DELETE_TODO_SUCCESS, payload: { id: todoId } });
 
 export const deleteTodoError = (todoId, error) => ({ type: DELETE_TODO_ERROR, payload: { id: todoId, error } });
 

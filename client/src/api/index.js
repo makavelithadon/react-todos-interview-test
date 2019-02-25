@@ -1,6 +1,13 @@
 import config from "./config";
 
 export default {
+  todosLists: {
+    baseUrl: "/todosLists",
+    async getAll() {
+      const response = await fetch(this.baseUrl, config);
+      return response.json();
+    }
+  },
   todos: {
     baseUrl: "/todos",
     async getAll() {

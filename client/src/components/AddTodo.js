@@ -41,6 +41,7 @@ export default function AddTodo({ addTodo, isAdding }) {
         onChange={handleChange}
         readonly={isAdding}
         placeholder={"Type a todo to add it on your todo's list"}
+        size={30}
       />
       <Button type={"submit"} color={"deeppink"} bgColor={"#fff"} rounded disabled={!content.trim()}>
         Ajouter
