@@ -7,14 +7,24 @@ import TodosList from "components/Todos/List";
 import { fetchTodos, selectTodo } from "state/ducks/todos/actions";
 import { getTodosItems, getIsLoading, getSelected } from "state/ducks/todos/selectors";
 
-const getVisibleTodos = (todos, filter) => {
+const getVisibleTodos = (todos, filter, sort) => {
+  let filteredTodos;
   switch (filter) {
-    case "completed":
-      return todos.filter(todo => todo.completed);
-    case "active":
-      return todos.filter(todo => !todo.completed);
+    case "bought":
+      filteredTodos = todos.filter(todo => todo.completed);
+      break;
+    case "not-bought":
+      filteredTodos = todos.filter(todo => !todo.completed);
+      break;
     default:
-      return todos;
+      filteredTodos = todos;
+      break;
+  }
+  switch (sort) {
+    case "alphabetical":
+      return filteredTodos.sort((a, b) => b.content.localeCompare(a.content));
+    default:
+      return filteredTodos;
   }
 };
 
@@ -29,9 +39,9 @@ const Todos = ({ fetchTodos, todos, isLoading, ...rest }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const queries = qs.parse(ownProps.location.search);
-  const { filter } = queries;
+  const { filter, sort } = queries;
   return {
-    todos: getVisibleTodos(getTodosItems(state), filter),
+    todos: getVisibleTodos(getTodosItems(state), filter, sort),
     isLoading: getIsLoading(state),
     selected: getSelected(state)
   };

@@ -32,7 +32,7 @@ export default function AddTodo({ addTodo, isAdding }) {
         }
       }}
     >
-      <StyledLabel htmlFor="todo">Add a todo</StyledLabel>
+      <StyledLabel htmlFor="todo">Ajouter un produit</StyledLabel>
       <br />
       <StyledTextInput
         id={"todo"}
@@ -42,7 +42,7 @@ export default function AddTodo({ addTodo, isAdding }) {
         readonly={isAdding}
         placeholder={"Type a todo to add it on your todo's list"}
       />
-      <Button type={"submit"} color={"deeppink"} bgColor={"#fff"} rounded>
+      <Button type={"submit"} color={"deeppink"} bgColor={"#fff"} rounded disabled={!content.trim()}>
         Ajouter
       </Button>
     </StyledForm>

@@ -45,7 +45,6 @@ async function addTodo(content) {
 function* addTodoWorkerSaga({ payload: content }) {
   try {
     const { data: todo } = yield call(addTodo, content);
-    console.log("todo", todo);
     yield put(addTodoSuccess(todo));
   } catch (error) {
     yield put(addTodoError(content, error));

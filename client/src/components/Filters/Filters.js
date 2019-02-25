@@ -15,8 +15,12 @@ function Filters({ history }) {
   };
   return (
     <StyledGroup>
-      {["all", "completed", "active"].map(filter => (
-        <Filter key={filter} filter={filter} onChange={handleChangeFilter} />
+      {[
+        { label: "Tous", search: "all" },
+        { label: "Achetés", search: "bought" },
+        { label: "Pas encore achetés", search: "not-bought" }
+      ].map(({ search, label }) => (
+        <Filter key={search} filter={search} label={label} onChange={handleChangeFilter} />
       ))}
     </StyledGroup>
   );

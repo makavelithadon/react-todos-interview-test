@@ -1,15 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { animated } from "react-spring/renderprops";
 
 const itemRadius = 8;
 
-const StyledTodo = styled(animated.li).attrs(({ opacity, height }) => ({
-  style: {
-    opacity: opacity.interpolate(o => o),
-    height: height.interpolate(h => h)
-  }
-}))`
+const StyledTodo = styled.li`
   display: flex;
   align-items: center;
   position: relative;
@@ -27,8 +21,6 @@ const StyledTodo = styled(animated.li).attrs(({ opacity, height }) => ({
   &:hover {
     background-color: #e13fa7;
   }
-  transition: 0.3s ease-out;
-  will-change: height, opacity;
 `;
 
 const StyledItemContent = styled.div`
@@ -54,9 +46,9 @@ const StyledDate = styled.div`
   }
 `;
 
-function TodoListItem({ todo, onSelect, isSelected, style, innerRef }) {
+export default function TodoListItem({ todo, onSelect, isSelected }) {
   return (
-    <StyledTodo {...style} onClick={() => onSelect(todo.id)} isselected={String(isSelected)} ref={innerRef}>
+    <StyledTodo onClick={() => onSelect(todo.id)} isselected={String(isSelected)}>
       <StyledItemContent isselected={String(isSelected)} completed={todo.completed}>
         {todo.content}
         <StyledDate isselected={String(isSelected)}>Ajouté le {todo.date}</StyledDate>
@@ -64,5 +56,3 @@ function TodoListItem({ todo, onSelect, isSelected, style, innerRef }) {
     </StyledTodo>
   );
 }
-
-export default React.forwardRef((props, ref) => <TodoListItem innerRef={ref} {...props} />);
