@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Input from "components/Input";
 import Button from "components/Button";
@@ -19,7 +20,7 @@ const StyledTextInput = styled(Input).attrs({
   border: 1px solid lightgrey;
 `;
 
-export default function AddTodo({ addTodo, isAdding }) {
+function AddTodo({ addTodo, isAdding, match }) {
   const [content, setContent] = useState("");
   const handleChange = e => setContent(e.target.value);
   return (
@@ -27,7 +28,7 @@ export default function AddTodo({ addTodo, isAdding }) {
       onSubmit={e => {
         e.preventDefault();
         if (content.trim()) {
-          addTodo(content);
+          addTodo(content, match.params.id);
           setContent("");
         }
       }}
@@ -49,3 +50,5 @@ export default function AddTodo({ addTodo, isAdding }) {
     </StyledForm>
   );
 }
+
+export default withRouter(AddTodo);

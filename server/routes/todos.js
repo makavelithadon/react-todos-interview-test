@@ -53,16 +53,32 @@ module.exports = function todos(router) {
   });
 
   router.get("/todos", (req, res, next) => {
-    res.status(200).send({ code: 200, data: getTodos() });
+    let todos = getTodos();
+    const { query } = req;
+    if (query) {
+      const { todosList } = query;
+      todos = todosList ? todos.filter(todo => todo.todosList === parseInt(todosList)) : todos;
+    }
+    if (!todos.length) {
+      res.status(404).send({ code: 404, message: "Not found." });
+      return;
+    }
+    res.status(200).send({ code: 200, data: todos });
   });
 
   router.post("/todos", (req, res, next) => {
     const todos = getTodos();
-    const { content } = req.body;
+    const { content, todosListId } = req.body;
     const date = new Date();
     const localeDate = date.toLocaleDateString("fr-FR");
     const localeTime = date.toLocaleTimeString("fr-FR");
-    const todo = { id: uuid.v4(), content, completed: false, date: `${localeDate} ${localeTime}` };
+    const todo = {
+      id: uuid.v4(),
+      content,
+      completed: false,
+      date: `${localeDate} ${localeTime}`,
+      todosList: parseInt(todosListId)
+    };
     const newTodos = [...todos, todo];
     setTodos(newTodos);
     res.status(200).send({ code: 200, data: todo });

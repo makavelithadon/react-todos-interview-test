@@ -9,9 +9,9 @@ const StyledGroup = styled.div.attrs(() => ({
   margin-bottom: 20px;
 `;
 
-function Filters({ history }) {
+function Filters({ history, match }) {
   const handleChangeFilter = e => {
-    history.push({ pathname: "/todos", search: `?filter=${e.target.name}` });
+    history.push({ pathname: `/todoslists/${match.params.id}/todos`, search: `?filter=${e.target.name}` });
   };
   return (
     <StyledGroup>

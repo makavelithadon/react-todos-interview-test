@@ -14,4 +14,10 @@ module.exports = function(router) {
   router.get("/todosLists", (req, res, next) => {
     res.status(200).send({ code: 200, data: getTodosLists() });
   });
+  router.get("/todosLists/:id", (req, res, next) => {
+    const todosLists = getTodosLists();
+    const foundTodosList = todosLists.find(todosList => parseInt(todosList.id) === parseInt(req.params.id));
+    if (foundTodosList) return res.status(200).send({ code: 200, data: foundTodosList });
+    return res.status(404).send({ code: 404, message: "Not found." });
+  });
 };

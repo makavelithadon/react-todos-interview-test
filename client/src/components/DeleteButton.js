@@ -11,7 +11,7 @@ const StyledDeleted = styled.div`
 `;
 
 export default function DeleteButton({ deleteTodo, isDeleting, todoId, todos }) {
-  console.log("todoId", todoId);
+  console.log("todos", todos);
   const notDeletedYet = todos.find(todo => todo.id === todoId);
   const button = (
     <Button

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import qs from "query-string";
 import { withRouter } from "react-router-dom";
-import TodosList from "components/Todos/List";
+import Todos from "views/Todos";
 import { fetchTodos, selectTodo } from "state/ducks/todos/actions";
-import { getTodosItems, getIsLoading, getSelected } from "state/ducks/todos/selectors";
+import { getTodosByTodosLIst, getTodosItems, getIsLoading, getSelected, getError } from "state/ducks/todos/selectors";
 
 const getVisibleTodos = (todos, filter, sort) => {
   let filteredTodos;
@@ -28,21 +28,27 @@ const getVisibleTodos = (todos, filter, sort) => {
   }
 };
 
-const Todos = ({ fetchTodos, todos, isLoading, ...rest }) => {
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-  const hasTodos = todos.length > 0;
-  if (isLoading) return "Loading todos, please wait...";
-  return !hasTodos ? "You do not have any todo yet." : <TodosList {...rest} todos={todos} />;
-};
+class ConnectedTodos extends React.Component {
+  componentDidMount() {
+    const { fetchTodos, match } = this.props;
+    fetchTodos(match.params.id);
+  }
+  render() {
+    const { fetchTodos, todos, isLoading, error, match, ...rest } = this.props;
+    const hasTodos = todos.length > 0;
+    if (isLoading) return "Loading todos, please wait...";
+    return !hasTodos ? "You do not have any todo yet." : <Todos todos={todos} {...rest} />;
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   const queries = qs.parse(ownProps.location.search);
   const { filter, sort } = queries;
+  const todos = getVisibleTodos(getTodosByTodosLIst(state, ownProps.match.params.id), filter, sort);
   return {
-    todos: getVisibleTodos(getTodosItems(state), filter, sort),
+    todos,
     isLoading: getIsLoading(state),
+    error: getError(state),
     selected: getSelected(state)
   };
 };
@@ -60,5 +66,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Todos)
+  )(ConnectedTodos)
 );

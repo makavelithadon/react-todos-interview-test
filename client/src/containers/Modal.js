@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getSelected } from "state/ducks/todos/selectors";
-import { selectTodo } from "state/ducks/todos/actions";
+import { unSelectTodo } from "state/ducks/todos/actions";
 import Modal from "components/Modal";
 import ModalContent from "components/ModalContent";
 
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onClose: () => dispatch(selectTodo(null))
+  onClose: () => dispatch(unSelectTodo())
 });
 
 export default connect(

@@ -47,9 +47,9 @@ export default function Modal({ open, onClose, children, target, ...rest }) {
     <>
       {portalBackdrop}
       <Spring
-        from={{ opacity: 0, y: 30 }}
-        to={{ opacity: Number(open), y: open ? 0 : 30 }}
-        config={{ ...config.gentle, delay: open ? 300 : 1, clamp: true }}
+        from={{ opacity: 0, y: 20 }}
+        to={{ opacity: Number(open), y: open ? 0 : 20 }}
+        config={{ ...config.gentle, delay: open ? 250 : 1, clamp: true }}
         native
       >
         {styles => {

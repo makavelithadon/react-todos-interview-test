@@ -6,11 +6,21 @@ import configureStore from "state/store";
 import Navbar from "components/Navbar";
 import Home from "views/Home";
 import TodosLists from "views/TodosLists";
-import Todos from "views/Todos";
+import TodosList from "containers/TodosList";
+import Todos from "containers/Todos";
 import "./App.css";
 
 const StyledLayout = styled.main`
   padding-top: 60px;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+  &.active {
+    color: #e13fa7;
+  }
 `;
 
 const store = configureStore();
@@ -21,14 +31,18 @@ export default function App() {
       <Router>
         <>
           <Navbar>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/todoslists">Mes Listes</NavLink>
+            <StyledNavLink exact to="/">
+              Home
+            </StyledNavLink>
+            <StyledNavLink to="/todoslists">Mes listes de courses</StyledNavLink>
           </Navbar>
           <StyledLayout>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route path="/todoslists/:id/todos" component={Todos} />
+              <Route path="/todoslists/:id" component={TodosList} />
               <Route path="/todoslists" component={TodosLists} />
-              <Route path="/todos" component={Todos} />
+              <Route render={props => <div>No page for {props.location.pathname}</div>} />
             </Switch>
           </StyledLayout>
         </>

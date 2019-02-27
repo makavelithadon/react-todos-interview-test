@@ -1,7 +1,7 @@
 import {
   FETCH_TODOS,
-  FETCH_TODOS_ERROR,
   FETCH_TODOS_SUCCESS,
+  FETCH_TODOS_ERROR,
   DELETE_TODO,
   DELETE_TODO_SUCCESS,
   DELETE_TODO_ERROR,
@@ -9,34 +9,79 @@ import {
   ADD_TODO_SUCCESS,
   ADD_TODO_ERROR,
   SELECT_TODO,
+  UNSELECT_TODO,
   UPDATE_TODO,
   UPDATE_TODO_SUCCESS,
   UPDATE_TODO_ERROR
 } from "./types";
-import * as sharedReducers from "state/ducks/shared/reducers";
 import { combineReducers } from "redux";
 
-const initialItems = [];
+const initialAllIds = [];
 
-export function todos(state = initialItems, action) {
+export function allIds(state = initialAllIds, action) {
   switch (action.type) {
     case FETCH_TODOS_SUCCESS:
-      return action.payload;
+      return action.payload.map(todo => todo.id);
     case DELETE_TODO_SUCCESS:
-      return state.filter(todo => todo.id !== action.payload.id);
+      return state.filter(todoId => todoId !== action.payload.id);
     case ADD_TODO_SUCCESS:
-      return [...state, action.payload];
-    case UPDATE_TODO_SUCCESS:
-      const index = state.findIndex(item => item.id === action.payload.id);
-      return [...state.slice(0, index), action.payload, ...state.slice(index + 1)];
+      return [...state, action.payload.id];
     default:
       return state;
   }
 }
 
-const isLoading = sharedReducers.isLoading(undefined, FETCH_TODOS);
+const initialByIds = {};
 
-const error = sharedReducers.error(undefined, [FETCH_TODOS, ADD_TODO, DELETE_TODO, UPDATE_TODO]);
+export function byIds(state = initialByIds, action) {
+  switch (action.type) {
+    case FETCH_TODOS_SUCCESS:
+      return { ...state, ...action.payload.reduce((obj, todo) => ({ ...obj, [todo.id]: todo }), {}) };
+    case DELETE_TODO_SUCCESS:
+      const clonedState = { ...state };
+      const { id } = action.payload;
+      delete clonedState[id];
+      return clonedState;
+    case ADD_TODO_SUCCESS:
+    case UPDATE_TODO_SUCCESS:
+      return { ...state, [action.payload.id]: action.payload };
+    default:
+      return state;
+  }
+}
+
+const initialLoading = false;
+
+function isLoading(state = initialLoading, action) {
+  switch (action.type) {
+    case FETCH_TODOS:
+      return true;
+    case FETCH_TODOS_SUCCESS:
+    case FETCH_TODOS_ERROR:
+      return false;
+    default:
+      return state;
+  }
+}
+
+const initialError = null;
+
+function error(state = initialError, action) {
+  switch (action.type) {
+    case FETCH_TODOS_SUCCESS:
+    case ADD_TODO_SUCCESS:
+    case DELETE_TODO_SUCCESS:
+    case UPDATE_TODO_SUCCESS:
+      return null;
+    case FETCH_TODOS_ERROR:
+    case ADD_TODO_ERROR:
+    case DELETE_TODO_ERROR:
+    case UPDATE_TODO_ERROR:
+      return action.payload.error;
+    default:
+      return state;
+  }
+}
 
 const initialIsDeleting = false;
 
@@ -72,6 +117,8 @@ export function selected(state = initialSelected, action) {
   switch (action.type) {
     case SELECT_TODO:
       return action.payload;
+    case UNSELECT_TODO:
+      return null;
     default:
       return state;
   }
@@ -92,7 +139,10 @@ export function isUpdating(state = initialIsUpdating, action) {
 }
 
 export default combineReducers({
-  items: todos,
+  items: combineReducers({
+    allIds,
+    byIds
+  }),
   isLoading,
   isDeleting,
   isAdding,
@@ -100,3 +150,51 @@ export default combineReducers({
   selected,
   error
 });
+
+/*
+
+
+Idea for new shape
+
+{
+  byTodosListId: {
+    1: { ... },
+    2: { ... }
+  }
+}
+
+{
+  todosLists: {
+    byIds: {
+      1: {
+        ...
+      },
+      2: {
+        ...
+      },
+      3: {
+
+      }
+    },
+    allIds: [1, 2, 3]
+  },
+  todos: {
+    byIds: {
+      1: {
+        ...
+      },
+      2: {
+        ...
+      },
+      3: {
+        
+      }
+    },
+    allIds: [1, 2, 3]
+  }
+}
+{
+
+}
+
+*/

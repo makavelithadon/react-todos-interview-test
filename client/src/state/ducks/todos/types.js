@@ -8,6 +8,7 @@ export const ADD_TODO = "ADD_TODO";
 export const ADD_TODO_SUCCESS = "ADD_TODO_SUCCESS";
 export const ADD_TODO_ERROR = "ADD_TODO_ERROR";
 export const SELECT_TODO = "SELECT_TODO";
+export const UNSELECT_TODO = "UNSELECT_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
 export const UPDATE_TODO_ERROR = "UPDATE_TODO_ERROR";

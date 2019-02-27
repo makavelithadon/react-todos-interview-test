@@ -12,13 +12,14 @@ import {
 } from "./actions";
 import api from "api";
 
-async function fetchTodos() {
-  return await api.todos.getAll();
+async function fetchTodos(todosListId) {
+  return await api.todos.getAll(todosListId);
 }
 
-function* fetchTodoWorkerSaga() {
+function* fetchTodosWorkerSaga({ payload: { todosListId } }) {
   try {
-    const { data: todos } = yield call(fetchTodos);
+    const response = yield call(fetchTodos, todosListId);
+    const { data: todos } = response;
     yield put(fetchTodosSuccess(todos));
   } catch (error) {
     yield put(fetchTodosError(error));
@@ -38,13 +39,13 @@ function* deleteTodoWorkerSaga({ payload: { id } }) {
   }
 }
 
-async function addTodo(content) {
-  return await api.todos.create(content);
+async function addTodo(content, todosListId) {
+  return await api.todos.create(content, todosListId);
 }
 
-function* addTodoWorkerSaga({ payload: content }) {
+function* addTodoWorkerSaga({ payload: { content, todosListId } }) {
   try {
-    const { data: todo } = yield call(addTodo, content);
+    const { data: todo } = yield call(addTodo, content, todosListId);
     yield put(addTodoSuccess(todo));
   } catch (error) {
     yield put(addTodoError(content, error));
@@ -65,7 +66,7 @@ function* updateTodoWorkerSaga({ payload: todo }) {
 }
 
 export default function* todoWatcherSaga() {
-  yield takeLatest(FETCH_TODOS, fetchTodoWorkerSaga);
+  yield takeLatest(FETCH_TODOS, fetchTodosWorkerSaga);
   yield takeEvery(DELETE_TODO, deleteTodoWorkerSaga);
   yield takeEvery(ADD_TODO, addTodoWorkerSaga);
   yield takeEvery(UPDATE_TODO, updateTodoWorkerSaga);

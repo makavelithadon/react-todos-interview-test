@@ -1,11 +1,13 @@
 import { createSelector } from "reselect";
 
-const getTodos = state => state.todos;
+const getTodos = state => {
+  return state.todos;
+};
 
-export const getTodosItems = createSelector(
-  getTodos,
-  todos => todos.items
-);
+export const getTodosItems = state => getTodos(state).items.byIds;
+
+export const getTodosByTodosLIst = (state, todosListId) =>
+  Object.values(getTodosItems(state)).filter(todo => parseInt(todo.todosList) === parseInt(todosListId));
 
 export const getIsLoading = createSelector(
   getTodos,
@@ -35,5 +37,10 @@ export const getSelected = createSelector(
 export const getSelectedItem = createSelector(
   getTodos,
   getTodosItems,
-  (todos, items) => items.find(item => item.id === todos.selected)
+  (todos, items) => Object.values(items).find(item => item.id === todos.selected)
+);
+
+export const getError = createSelector(
+  getTodos,
+  todos => todos.error
 );
